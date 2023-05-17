@@ -3,4 +3,4 @@ project(RpnCalculator)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(RpnCalculator main.cc)
+add_subdirectory(applications)
