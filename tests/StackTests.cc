@@ -2,7 +2,7 @@
 
 class Stack {};
 
-TEST(Stack, InitialPassingTest) {
+TEST(StackTests, InitialPassingTest) {
     Stack soundex;
     ASSERT_EQ(1, 1);
 }
