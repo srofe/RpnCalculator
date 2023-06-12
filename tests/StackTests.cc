@@ -10,7 +10,9 @@ public:
     }
 
     double pop() {
-        return content[0];
+        auto item = content.front();
+        content.pop_front();
+        return item;
     }
 };
 
@@ -31,6 +33,13 @@ TEST_F(StackTests, PushItemToStackAddsThatItem) {
 
 TEST_F(StackTests, PopItemRetrievesItemFromStack) {
     sut.push(2.1);
-    double item = sut.pop();
+    auto item = sut.pop();
     ASSERT_EQ(item, 2.1) << "Popping an item from the stack shall retrieve that item from the stack.";
+}
+
+TEST_F(StackTests, PopItemFromStackRemovesTheItem) {
+    sut.push(3.5);
+    ASSERT_EQ(sut.content.size(), 1);
+    sut.pop();
+    ASSERT_EQ(sut.content.size(), 0) << "Popping and item from the stack shall remove the item from the stack.";
 }
