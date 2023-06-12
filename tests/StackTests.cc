@@ -1,8 +1,17 @@
 #include "gmock/gmock.h"
 
-class Stack {};
+#import<stack>
 
-TEST(StackTests, InitialPassingTest) {
-    Stack soundex;
-    ASSERT_EQ(1, 1);
+class Stack {
+public:
+    std::stack<double> content;
+    void push(double item) {
+        content.push(item);
+    }
+};
+
+TEST(StackTests, PushItemToStackResultsInOneItemOnStack) {
+    Stack stack;
+    stack.push(3.2);
+    ASSERT_EQ(stack.content.size(), 1);
 }
