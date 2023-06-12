@@ -4,9 +4,9 @@
 
 class Stack {
 public:
-    std::stack<double> content;
+    std::deque<double> content;
     void push(double item) {
-        content.push(item);
+        content.push_front(item);
     }
 };
 
