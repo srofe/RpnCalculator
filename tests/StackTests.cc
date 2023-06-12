@@ -10,14 +10,17 @@ public:
     }
 };
 
-TEST(StackTests, PushItemToStackResultsInOneItemOnStack) {
-    Stack stack;
-    stack.push(3.2);
-    ASSERT_EQ(stack.content.size(), 1) << "Pushing an item to the stack shall create a container with one item.";
+class StackTests : public testing::Test {
+public:
+    Stack sut;
+};
+
+TEST_F(StackTests, PushItemToStackResultsInOneItemOnStack) {
+    sut.push(3.2);
+    ASSERT_EQ(sut.content.size(), 1) << "Pushing an item to the stack shall create a container with one item.";
 }
 
-TEST(StackTests, PushItemToStackAddsThatItem) {
-    Stack stack;
-    stack.push(4.5);
-    ASSERT_EQ(stack.content[0], 4.5) << "Pushing an item to the stack shall add that item to the top of the container.";
+TEST_F(StackTests, PushItemToStackAddsThatItem) {
+    sut.push(4.5);
+    ASSERT_EQ(sut.content[0], 4.5) << "Pushing an item to the stack shall add that item to the top of the container.";
 }
