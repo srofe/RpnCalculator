@@ -16,7 +16,10 @@ public:
         return item;
     }
 
-    std::vector<double> getElements(size_t length) {
+    std::vector<double> getElements(size_t length = -1) {
+        if (length == -1) {
+            length = content.size();
+        }
         std::vector<double> elements;
         elements.insert(elements.begin(), content.begin(), content.begin() + length);
         return elements;
@@ -66,5 +69,14 @@ TEST_F(StackTests, GetElementsReturnsStackElements) {
     sut.push(8.3);
     sut.push(1.9);
     std::vector<double> stackItems = { 1.9, 8.3, 6.7 };
-    ASSERT_EQ(sut.getElements(3), stackItems);
+    ASSERT_EQ(sut.getElements(3), stackItems) << "A Stack shall have a getElements(size_t) method which returns a vector containing the specified elements from the top of the stack.";
+}
+
+TEST_F(StackTests, GetElementsReturnsAllElementsByDefault) {
+    sut.push(7.3);
+    sut.push(8.9);
+    sut.push(2.5);
+    sut.push(6.1);
+    std::vector<double> stackItems = { 6.1, 2.5, 8.9, 7.3 };
+    ASSERT_EQ(sut.getElements(), stackItems) << "A Stack's getElements(size_t) method shall return all elements by default.";
 }
