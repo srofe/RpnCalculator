@@ -12,9 +12,6 @@ protected:
             sut.pop();
         }
     }
-
-//    StackTests() {};
-//    ~StackTests() {};
 };
 
 TEST_F(StackTests, PushItemToStackResultsInOneItemOnStack) {
