@@ -5,6 +5,7 @@
 class Stack {
 public:
     std::deque<double> content;
+
     void push(double item) {
         content.push_front(item);
     }
@@ -42,4 +43,13 @@ TEST_F(StackTests, PopItemFromStackRemovesTheItem) {
     ASSERT_EQ(sut.content.size(), 1);
     sut.pop();
     ASSERT_EQ(sut.content.size(), 0) << "Popping and item from the stack shall remove the item from the stack.";
+}
+
+TEST_F(StackTests, PushingMultipleItemsAddsThemToTheStack) {
+    sut.push(1.2);
+    sut.push(3.4);
+    sut.push(5.6);
+    ASSERT_EQ(sut.content[0], 5.6) << "Pushing multiple items to the stack shall add those items to the container - third item.";
+    ASSERT_EQ(sut.content[1], 3.4) << "Pushing multiple items to the stack shall add those items to the container - second item.";
+    ASSERT_EQ(sut.content[2], 1.2) << "Pushing multiple items to the stack shall add those items to the container - first item.";
 }
