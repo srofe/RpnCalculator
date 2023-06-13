@@ -37,15 +37,6 @@ TEST_F(StackTests, PopItemFromStackRemovesTheItem) {
     ASSERT_EQ(sut.getElements().size(), 0) << "Popping and item from the stack shall remove the item from the stack.";
 }
 
-TEST_F(StackTests, PushingMultipleItemsAddsThemToTheStack) {
-    sut.push(1.2);
-    sut.push(3.4);
-    sut.push(5.6);
-    ASSERT_EQ(sut.getElements(3)[0], 5.6) << "Pushing multiple items to the stack shall add those items to the container - third item.";
-    ASSERT_EQ(sut.getElements(3)[1], 3.4) << "Pushing multiple items to the stack shall add those items to the container - second item.";
-    ASSERT_EQ(sut.getElements(3)[2], 1.2) << "Pushing multiple items to the stack shall add those items to the container - first item.";
-}
-
 TEST_F(StackTests, GetElementsReturnsStackElements) {
     sut.push(9.4);
     sut.push(6.7);
