@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "../applications/common/Stack.h"
+#include <Stack.h>
 
 class StackTests : public testing::Test {
 public:
