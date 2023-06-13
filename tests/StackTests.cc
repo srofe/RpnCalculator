@@ -15,6 +15,12 @@ public:
         content.pop_front();
         return item;
     }
+
+    std::vector<double> getElements(size_t length) {
+        std::vector<double> elements;
+        elements.insert(elements.begin(), content.begin(), content.end());
+        return elements;
+    }
 };
 
 class StackTests : public testing::Test {
@@ -52,4 +58,13 @@ TEST_F(StackTests, PushingMultipleItemsAddsThemToTheStack) {
     ASSERT_EQ(sut.content[0], 5.6) << "Pushing multiple items to the stack shall add those items to the container - third item.";
     ASSERT_EQ(sut.content[1], 3.4) << "Pushing multiple items to the stack shall add those items to the container - second item.";
     ASSERT_EQ(sut.content[2], 1.2) << "Pushing multiple items to the stack shall add those items to the container - first item.";
+}
+
+TEST_F(StackTests, GetElementsReturnsStackElements) {
+    sut.push(9.4);
+    sut.push(6.7);
+    sut.push(8.3);
+    sut.push(1.9);
+    std::vector<double> stackItems = { 1.9, 8.3, 6.7, 9.4 };
+    ASSERT_EQ(sut.getElements(4), stackItems);
 }
