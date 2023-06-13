@@ -1,5 +1,10 @@
 #include "Stack.h"
 
+Stack &Stack::instance() {
+    static Stack instance;
+    return instance;
+}
+
 void Stack::push(double item) {
     content.push_front(item);
 }

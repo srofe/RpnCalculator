@@ -3,7 +3,7 @@
 
 class StackTests : public testing::Test {
 public:
-    Stack sut;
+    Stack sut = Stack::instance();
 };
 
 TEST_F(StackTests, PushItemToStackResultsInOneItemOnStack) {
