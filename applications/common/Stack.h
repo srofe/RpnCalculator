@@ -6,6 +6,11 @@
 
 class Stack {
 private:
+    Stack() {};
+    ~Stack() = default;
+    Stack(const Stack&) = delete;
+    Stack &operator=(const Stack&) = delete;
+
     std::deque<double> content;
 
 public:

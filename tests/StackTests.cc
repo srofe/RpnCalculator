@@ -3,7 +3,18 @@
 
 class StackTests : public testing::Test {
 public:
-    Stack sut = Stack::instance();
+    Stack &sut = Stack::instance();
+
+protected:
+    void SetUp() override {
+        int stackLength = sut.getElements().size();
+        for (auto i = 0; i < stackLength; ++i) {
+            sut.pop();
+        }
+    }
+
+//    StackTests() {};
+//    ~StackTests() {};
 };
 
 TEST_F(StackTests, PushItemToStackResultsInOneItemOnStack) {
