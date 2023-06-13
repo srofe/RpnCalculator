@@ -18,7 +18,7 @@ public:
 
     std::vector<double> getElements(size_t length) {
         std::vector<double> elements;
-        elements.insert(elements.begin(), content.begin(), content.end());
+        elements.insert(elements.begin(), content.begin(), content.begin() + length);
         return elements;
     }
 };
@@ -65,6 +65,6 @@ TEST_F(StackTests, GetElementsReturnsStackElements) {
     sut.push(6.7);
     sut.push(8.3);
     sut.push(1.9);
-    std::vector<double> stackItems = { 1.9, 8.3, 6.7, 9.4 };
-    ASSERT_EQ(sut.getElements(4), stackItems);
+    std::vector<double> stackItems = { 1.9, 8.3, 6.7 };
+    ASSERT_EQ(sut.getElements(3), stackItems);
 }
