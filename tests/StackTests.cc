@@ -7,10 +7,7 @@ public:
 
 protected:
     void SetUp() override {
-        auto stackLength = sut.getElements().size();
-        for (auto i = 0; i < stackLength; ++i) {
-            sut.pop();
-        }
+        sut.clear();
     }
 };
 
