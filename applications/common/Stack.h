@@ -19,6 +19,7 @@ public:
     double pop();
     std::vector<double> getElements(int length = -1);
     void clear();
+    void swapTop();
 };
 
 #endif // __STACK_H__

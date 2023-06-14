@@ -73,3 +73,13 @@ TEST_F(StackTests, ClearRemovesAllElements) {
     std::vector<double> emptyVector = {};
     ASSERT_EQ(sut.getElements(), emptyVector) << "A Stack's clear() method shall remove all elements.";
 }
+
+TEST_F(StackTests, SwapTopExchangesTopTwoItems) {
+    sut.push(2.6);
+    sut.push(9.4);
+    sut.push(0.3);
+    sut.push(7.5);
+    sut.swapTop();
+    std::vector<double> emptyVector = { 0.3, 7.5, 9.4, 2.6 };
+    ASSERT_EQ(sut.getElements(), emptyVector) << "A Stack's clear() method shall remove all elements.";
+}

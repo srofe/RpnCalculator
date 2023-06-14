@@ -27,3 +27,10 @@ std::vector<double> Stack::getElements(int length) {
 void Stack::clear() {
     content.clear();
 }
+
+void Stack::swapTop() {
+    auto first = pop();
+    auto second = pop();
+    content.push_front(first);
+    content.push_front(second);
+}
