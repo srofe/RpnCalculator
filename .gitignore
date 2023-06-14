@@ -1,6 +1,9 @@
 #### - Local customisations.
 .idea/
 
+# Can run "cmake -GXcode .." in this directory to create an Xcode project.
+xcode/
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/clion,qt,qtcreator,c++,macos,jetbrains
 # Edit at https://www.toptal.com/developers/gitignore?templates=clion,qt,qtcreator,c++,macos,jetbrains

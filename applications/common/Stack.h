@@ -6,7 +6,7 @@
 
 class Stack {
 private:
-    Stack() {};
+    Stack() = default;
     ~Stack() = default;
     Stack(const Stack&) = delete;
     Stack &operator=(const Stack&) = delete;
