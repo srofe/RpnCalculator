@@ -16,7 +16,7 @@ double Stack::pop() {
 }
 
 std::vector<double> Stack::getElements(size_t length) {
-    if (length == -1) {
+    if (length == 0) {
         length = content.size();
     }
     std::vector<double> elements;

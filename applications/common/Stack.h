@@ -17,7 +17,7 @@ public:
     static Stack & instance();
     void push(double item);
     double pop();
-    std::vector<double> getElements(size_t length = -1);
+    std::vector<double> getElements(size_t length = 0);
 };
 
 #endif // __STACK_H__
