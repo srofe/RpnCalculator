@@ -23,3 +23,7 @@ std::vector<double> Stack::getElements(int length) {
     elements.insert(elements.begin(), content.begin(), content.begin() + length);
     return elements;
 }
+
+void Stack::clear() {
+    content.clear();
+}

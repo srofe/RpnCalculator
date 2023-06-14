@@ -60,6 +60,16 @@ TEST_F(StackTests, GetElementsReturnsNoItemsIfNoneRequested) {
     sut.push(7.5);
     sut.push(3.4);
     sut.push(2.1);
-    std::vector<double> stackItems = {};
-    ASSERT_EQ(sut.getElements(0), stackItems) << "A Stack  getElements(size_t) method shall return no items if zero are requested.";
+    std::vector<double> emptyVector = {};
+    ASSERT_EQ(sut.getElements(0), emptyVector) << "A Stack's getElements(size_t) method shall return no items if zero are requested.";
+}
+
+TEST_F(StackTests, ClearRemovesAllElements) {
+    sut.push(5.4);
+    sut.push(3.9);
+    sut.push(6.7);
+    sut.push(9.0);
+    sut.clear();
+    std::vector<double> emptyVector = {};
+    ASSERT_EQ(sut.getElements(), emptyVector) << "A Stack's clear() method shall remove all elements.";
 }

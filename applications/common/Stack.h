@@ -18,6 +18,7 @@ public:
     void push(double item);
     double pop();
     std::vector<double> getElements(int length = -1);
+    void clear();
 };
 
 #endif // __STACK_H__
