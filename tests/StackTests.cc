@@ -54,3 +54,12 @@ TEST_F(StackTests, GetElementsReturnsAllElementsByDefault) {
     std::vector<double> stackItems = { 6.1, 2.5, 8.9, 7.3 };
     ASSERT_EQ(sut.getElements(), stackItems) << "A Stack's getElements(size_t) method shall return all elements by default.";
 }
+
+TEST_F(StackTests, GetElementsReturnsNoItemsIfNoneRequested) {
+    sut.push(1.5);
+    sut.push(7.5);
+    sut.push(3.4);
+    sut.push(2.1);
+    std::vector<double> stackItems = {};
+    ASSERT_EQ(sut.getElements(0), stackItems) << "A Stack  getElements(size_t) method shall return no items if zero are requested.";
+}
