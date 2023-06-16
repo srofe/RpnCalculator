@@ -9,7 +9,10 @@ set(sources
         main.cc
         StackTests.cc)
 
-add_executable(RpnCalcTests ${sources} )
+set(app_sources
+        ../applications/common/Stack.cc)
+
+add_executable(RpnCalcTests ${sources} ${app_sources} )
 
 target_link_libraries(RpnCalcTests gmock)
 target_link_libraries(RpnCalcTests gtest)
