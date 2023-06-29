@@ -1,5 +1,4 @@
-#ifndef __STACK_H__
-#define __STACK_H__
+#pragma once
 
 #include <deque>
 #include <vector>
@@ -21,5 +20,3 @@ public:
     void clear();
     void swapTop();
 };
-
-#endif // __STACK_H__
