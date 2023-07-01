@@ -28,3 +28,8 @@ TEST(Observer, TestDoubleObserverConvertsDoubleFromUpdate) {
 
     ASSERT_EQ(testObserver.getData(), 34.2) << "A concrete Observer of double shall convert the value passed to update() to a double.";
 }
+
+TEST(Observer, TestDoubleObserverUpdateThrowsExcpetionForStringParameter) {
+    TestObserver testObserver;
+    ASSERT_ANY_THROW(testObserver.update("DummyString")) << "A concrete Observer of double shall throw an exception when a string is passed to update()";
+}
