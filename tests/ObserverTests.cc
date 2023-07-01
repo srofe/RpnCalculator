@@ -15,16 +15,16 @@ public:
 };
 
 void TestObserver::update(const EventData &eventData) {
-    this->data = std::any_cast<double>(data);
+    data = std::any_cast<double>(eventData);
 }
 
 double TestObserver::getData() const {
     return this->data;
 }
 
-TEST(Observer, InitialFailingTest) {
+TEST(Observer, TestDoubleObserverConvertsDoubleFromUpdate) {
     TestObserver testObserver;
     testObserver.update(34.2);
 
-    ASSERT_EQ(testObserver.getData(), 34.2) << "An Observer shall allow double data types to be passed to the update() method.";
+    ASSERT_EQ(testObserver.getData(), 34.2) << "A concrete Observer of double shall convert the value passed to update() to a double.";
 }
