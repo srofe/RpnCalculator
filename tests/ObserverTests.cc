@@ -1,12 +1,5 @@
 #include <gmock/gmock.h>
-
-using EventData = std::any;
-
-class Observer {
-public:
-    virtual ~Observer() = default;
-    virtual void update(const EventData &eventData) = 0;
-};
+#include <Observer.h>
 
 class TestObserver : public  Observer {
 public:
