@@ -8,7 +8,7 @@ link_directories(/usr/local/lib/googletest/build/lib)
 set(sources
         main.cc
         StackTests.cc
-        ObserverTests.cc)
+        PublisherObserverTests.cc)
 
 set(app_sources
         ../applications/common/Stack.cc)
