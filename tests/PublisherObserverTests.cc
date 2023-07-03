@@ -53,10 +53,21 @@ TEST(PublisherObserver, DetatchingUnknownObserverThrowsException) {
     ASSERT_ANY_THROW(mockPublisher.detach("observer")) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception.";
 }
 
-TEST(PublisherObserver, CallingPublisherNotifiationShallUpdateObserver) {
-    MockObserver mockObserver { "mockObserver" };
+TEST(PublisherObserver, CallingPublisherNotifyUpdatesObserver) {
+    MockObserver mockObserver { "Observer" };
     MockPublisher mockPublisher;
     mockPublisher.attach(&mockObserver);
     mockPublisher.notify();
-    ASSERT_TRUE(mockObserver.updateCalled) << "The Publisher notify() method shall notify an Observer bby calling its update() method.";
+    ASSERT_TRUE(mockObserver.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method.";
+}
+
+TEST(PublisherObserver, CallingPublisherNotifyUpdatesAllObservers) {
+    MockObserver mockObserver1 { "Observer1" };
+    MockObserver mockObserver2 { "Observer2" };
+    MockPublisher mockPublisher;
+    mockPublisher.attach(&mockObserver1);
+    mockPublisher.attach(&mockObserver2);
+    mockPublisher.notify();
+    ASSERT_TRUE(mockObserver1.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer1.";
+    ASSERT_TRUE(mockObserver2.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer2.";
 }

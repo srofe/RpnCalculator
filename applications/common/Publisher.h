@@ -31,5 +31,7 @@ void Publisher::detach(const std::string &name) {
 }
 
 void Publisher::notify() {
-    observers.front()->update(EventData());
+    for (auto observer : observers) {
+        observer->update(EventData());
+    }
 }
