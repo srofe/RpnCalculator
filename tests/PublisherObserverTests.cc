@@ -4,6 +4,7 @@
 
 class MockPublisher : public Publisher {
 public:
+    void notify() { observers.front()->update(EventData()); }
     size_t observerCount();
 };
 
@@ -12,9 +13,10 @@ size_t MockPublisher::observerCount() {
 }
 
 class MockObserver : public  Observer {
-    void update(const EventData &eventData) override {}
+    void update(const EventData &eventData) override { updateCalled = true; }
 public:
     explicit MockObserver(std::string_view name);
+    bool updateCalled = false;
 };
 
 MockObserver::MockObserver(std::string_view name) : Observer(name) {}
@@ -49,4 +51,12 @@ TEST(PublisherObserver, DetatchingSubscribberDecrementsSubscriberCount) {
 TEST(PublisherObserver, DetatchingUnknownObserverThrowsException) {
     MockPublisher mockPublisher;
     ASSERT_ANY_THROW(mockPublisher.detach("observer")) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception.";
+}
+
+TEST(PublisherObserver, CallingPublisherNotifiationShallUpdateObserver) {
+    MockObserver mockObserver { "mockObserver" };
+    MockPublisher mockPublisher;
+    mockPublisher.attach(&mockObserver);
+    mockPublisher.notify();
+    ASSERT_TRUE(mockObserver.updateCalled) << "The Publisher notify() method shall notify an Observer bby calling its update() method.";
 }

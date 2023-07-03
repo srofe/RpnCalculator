@@ -11,6 +11,7 @@ public:
 
 protected:
     std::list<Observer*> observers;
+    void notify();
 };
 
 void Publisher::attach(Observer *observer) {
@@ -28,3 +29,5 @@ void Publisher::detach(const std::string &name) {
     }
     observers.erase(toDelete);
 }
+
+void Publisher::notify() {}
