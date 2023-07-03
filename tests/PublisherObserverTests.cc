@@ -4,7 +4,7 @@
 
 class MockPublisher : public Publisher {
 public:
-    void notify() { observers.front()->update(EventData()); }
+    using Publisher::notify;
     size_t observerCount();
 };
 

@@ -30,4 +30,6 @@ void Publisher::detach(const std::string &name) {
     observers.erase(toDelete);
 }
 
-void Publisher::notify() {}
+void Publisher::notify() {
+    observers.front()->update(EventData());
+}
