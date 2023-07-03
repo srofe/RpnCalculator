@@ -14,7 +14,7 @@ size_t MockPublisher::observerCount() {
 class MockObserver : public  Observer {
     void update(const EventData &eventData) override {}
 public:
-    explicit MockObserver(std::string_view name = "");
+    explicit MockObserver(std::string_view name);
 };
 
 MockObserver::MockObserver(std::string_view name) : Observer(name) {}
@@ -25,7 +25,7 @@ TEST(Observer, ObserverHasName) {
 }
 
 TEST(PublisherObserver, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
-    MockObserver mockObserver;
+    MockObserver mockObserver { "observer" };
     MockPublisher mockPublisher;
 
     mockPublisher.attach(&mockObserver);
@@ -34,8 +34,8 @@ TEST(PublisherObserver, AttachingSubscriberToPublisherIncrementsSubscriberCount)
 }
 
 TEST(PublisherObserver, DetatchingSubscribberDecrementsSubscriberCount) {
-    MockObserver mockObserver1;
-    MockObserver mockObserver2;
+    MockObserver mockObserver1 { "observer1" };
+    MockObserver mockObserver2 { "observer2" };
     MockPublisher mockPublisher;
 
     mockPublisher.attach(&mockObserver1);
