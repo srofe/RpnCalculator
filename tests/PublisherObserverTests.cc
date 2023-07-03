@@ -48,5 +48,5 @@ TEST(PublisherObserver, DetatchingSubscribberDecrementsSubscriberCount) {
 
 TEST(PublisherObserver, DetatchingUnknownObserverThrowsException) {
     MockPublisher mockPublisher;
-    ASSERT_ANY_THROW(mockPublisher.detach("observer"));
+    ASSERT_ANY_THROW(mockPublisher.detach("observer")) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception.";
 }
