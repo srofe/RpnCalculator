@@ -45,3 +45,8 @@ TEST(PublisherObserver, DetatchingSubscribberDecrementsSubscriberCount) {
 
     ASSERT_EQ(mockPublisher.observerCount(), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
 }
+
+TEST(PublisherObserver, DetatchingUnknownObserverThrowsException) {
+    MockPublisher mockPublisher;
+    ASSERT_ANY_THROW(mockPublisher.detach("observer"));
+}
