@@ -13,7 +13,17 @@ size_t MockPublisher::observerCount() {
 
 class MockObserver : public  Observer {
     void update(const EventData &eventData) override {}
+public:
+    explicit MockObserver(std::string_view name = "");
+    static std::string name() { return  "observer"; }
 };
+
+MockObserver::MockObserver(std::string_view name) {}
+
+TEST(Observer, ObserverHasName) {
+    MockObserver mockObserver("observer");
+    ASSERT_EQ(mockObserver.name(), "observer") << "An Observer shall have a name.";
+}
 
 TEST(PublisherObserver, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
     MockObserver mockObserver;
