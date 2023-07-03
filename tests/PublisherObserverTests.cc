@@ -1,24 +1,25 @@
 #include <gmock/gmock.h>
+#include <Publisher.h>
 #include <Observer.h>
 
-class TestObserver : public  Observer {
+class MockPublisher : public Publisher {
 public:
-    double data = 0.0;
-    void update(const EventData &data) override;
-    double getData() const;
+    size_t observerCount();
 };
 
-void TestObserver::update(const EventData &eventData) {
-    data = std::any_cast<double>(eventData);
+size_t MockPublisher::observerCount() {
+    return observers.size();
 }
 
-double TestObserver::getData() const {
-    return this->data;
-}
+class MockObserver : public  Observer {
+    void update(const EventData &eventData) override {}
+};
 
-TEST(Observer, TestDoubleObserverConvertsDoubleFromUpdate) {
-    TestObserver testObserver;
-    testObserver.update(34.2);
+TEST(PublisherObserver, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
+    MockObserver mockObserver;
+    MockPublisher mockPublisher;
 
-    ASSERT_EQ(testObserver.getData(), 34.2) << "A concrete Observer of double shall convert the value passed to update() to a double.";
+    mockPublisher.attach(&mockObserver);
+
+    ASSERT_EQ(mockPublisher.observerCount(), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
