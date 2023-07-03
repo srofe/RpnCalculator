@@ -6,6 +6,7 @@
 class Publisher {
 public:
     void attach(Observer *observer);
+    void detach(Observer *observer);
 
 protected:
     std::list<Observer*> observers;
@@ -13,4 +14,8 @@ protected:
 
 void Publisher::attach(Observer *observer) {
     observers.push_back(observer);
+}
+
+void Publisher::detach(Observer *observer) {
+    observers.remove(observer);
 }
