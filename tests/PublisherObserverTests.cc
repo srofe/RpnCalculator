@@ -5,12 +5,8 @@
 class MockPublisher : public Publisher {
 public:
     using Publisher::notify;
-    size_t observerCount();
+    inline size_t observerCount() { return observers.size(); }
 };
-
-size_t MockPublisher::observerCount() {
-    return observers.size();
-}
 
 class MockObserver : public  Observer {
     void update(const EventData &eventData) override { updateCalled = true; }
