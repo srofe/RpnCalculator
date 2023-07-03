@@ -15,10 +15,9 @@ class MockObserver : public  Observer {
     void update(const EventData &eventData) override {}
 public:
     explicit MockObserver(std::string_view name = "");
-    static std::string name() { return  "observer"; }
 };
 
-MockObserver::MockObserver(std::string_view name) {}
+MockObserver::MockObserver(std::string_view name) : Observer(name) {}
 
 TEST(Observer, ObserverHasName) {
     MockObserver mockObserver("observer");
