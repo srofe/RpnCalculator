@@ -4,13 +4,15 @@
 #include <Observer.h>
 #include <Exception.h>
 
+using ObserverList = std::list<Observer*>;
+
 class Publisher {
 public:
     void attach(Observer *observer);
     void detach(const std::string &name);
 
 protected:
-    std::list<Observer*> observers;
+    ObserverList observers;
     void notify();
 };
 
