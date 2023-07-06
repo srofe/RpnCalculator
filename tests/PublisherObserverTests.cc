@@ -38,7 +38,7 @@ TEST(PublisherObserver, DetatchingSubscribberDecrementsSubscriberCount) {
 
     mockPublisher.attach(&mockObserver1);
     mockPublisher.attach(&mockObserver2);
-    ASSERT_EQ(mockPublisher.observerCount(), 2);
+    ASSERT_EQ(mockPublisher.observerCount(), 2) << "Confirm there are two observers attached.";
     mockPublisher.detach("observer2");
 
     ASSERT_EQ(mockPublisher.observerCount(), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
