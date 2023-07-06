@@ -27,6 +27,11 @@ TEST(Observer, ObserverHasName) {
     ASSERT_EQ(mockObserver.name(), "observer") << "An Observer shall have a name.";
 }
 
+TEST_F(PublisherObserverTests, RegisterSingleEventAddsEvent) {
+    sut.registerEvent("FirstEvent");
+    ASSERT_EQ(sut.eventNames().front(), "FirstEvent");
+}
+
 TEST_F(PublisherObserverTests, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
     MockObserver mockObserver { "observer" };
     sut.attach(&mockObserver);
