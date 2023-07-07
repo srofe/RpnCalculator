@@ -29,7 +29,13 @@ TEST(Observer, ObserverHasName) {
 
 TEST_F(PublisherObserverTests, RegisterSingleEventAddsEvent) {
     sut.registerEvent("FirstEvent");
-    ASSERT_EQ(sut.eventNames().front(), "FirstEvent");
+    ASSERT_EQ(sut.eventNames().front(), "FirstEvent") << "Registering a single event shall add the event.";
+}
+
+TEST_F(PublisherObserverTests, RegisterSameEventTwiceDoesNotAddSecondEvent) {
+    sut.registerEvent("FirstEvent");
+    sut.registerEvent("FirstEvent");
+    ASSERT_EQ(sut.eventNames().size(), 1) << "A Publisher shall not allow duplicate event names.";
 }
 
 TEST_F(PublisherObserverTests, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
