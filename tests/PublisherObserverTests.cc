@@ -46,13 +46,13 @@ TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
     ASSERT_EQ(sut.eventNames().back(), "SecondEvent");
 }
 
-TEST_F(PublisherObserverTests, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
+TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
     MockObserver mockObserver { "observer" };
     sut.attach(&mockObserver);
     ASSERT_EQ(sut.observerCount(), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
 
-TEST_F(PublisherObserverTests, DetatchingSubscribberDecrementsSubscriberCount) {
+TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
     MockObserver mockObserver1 { "observer1" };
     MockObserver mockObserver2 { "observer2" };
     sut.attach(&mockObserver1);
