@@ -18,21 +18,25 @@ public:
 
 MockObserver::MockObserver(std::string_view name) : Observer(name) {}
 
+const std::string observerName = "Observer";
+const std::string observerOne = "ObserverOne";
+const std::string observerTwo = "ObserverTwo";
+const std::string firstEvent = "FirstEvent";
+const std::string secondEvent = "SecondEvent";
+
 class PublisherObserverTests : public testing::Test {
 public:
     MockPublisher sut;
 
 protected:
-    const std::string firstEvent = "FirstEvent";
-    const std::string secondEvent = "SecondEvent";
     void SetUp() override {
         sut.registerEvent(firstEvent);
     }
 };
 
 TEST(Observer, ObserverHasName) {
-    MockObserver mockObserver("observer");
-    ASSERT_EQ(mockObserver.name(), "observer") << "An Observer shall have a name.";
+    MockObserver mockObserver(observerName);
+    ASSERT_EQ(mockObserver.name(), observerName) << "An Observer shall have a name.";
 }
 
 TEST_F(PublisherObserverTests, RegisterSingleEventAddsEvent) {
@@ -52,28 +56,28 @@ TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
 }
 
 TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
-    MockObserver mockObserver { "observer" };
+    MockObserver mockObserver { observerName };
     sut.attach(&mockObserver, firstEvent);
     ASSERT_EQ(sut.eventObserverCount(firstEvent), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
-    MockObserver mockObserver1 { "observer1" };
-    MockObserver mockObserver2 { "observer2" };
+    MockObserver mockObserver1 { observerOne };
+    MockObserver mockObserver2 { observerTwo };
     sut.attach(&mockObserver1);
     sut.attach(&mockObserver2);
     ASSERT_EQ(sut.observerCount(), 2) << "Confirm there are two observers attached.";
-    sut.detach("observer2");
+    sut.detach(observerTwo);
     ASSERT_EQ(sut.observerCount(), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingUnknownObserverThrowsException) {
-    ASSERT_THROW(sut.detach("observer"), Exception) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception of type 'Exception'.";
+    ASSERT_THROW(sut.detach(observerName), Exception) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception of type 'Exception'.";
 }
 
 TEST_F(PublisherObserverTests, CallingPublisherNotifyUpdatesAllObservers) {
-    MockObserver mockObserver1 { "Observer1" };
-    MockObserver mockObserver2 { "Observer2" };
+    MockObserver mockObserver1 { observerOne };
+    MockObserver mockObserver2 { observerTwo };
     sut.attach(&mockObserver1);
     sut.attach(&mockObserver2);
     sut.notify();
