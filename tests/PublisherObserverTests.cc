@@ -63,7 +63,7 @@ TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
 }
 
 TEST_F(PublisherObserverTests, DetatchingUnknownObserverThrowsException) {
-    ASSERT_ANY_THROW(sut.detach("observer")) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception.";
+    ASSERT_THROW(sut.detach("observer"), Exception) << "Attempting to detach an Observer that has not been attached to a Publisher shall throw an exception of type 'Exception'.";
 }
 
 TEST_F(PublisherObserverTests, CallingPublisherNotifyUpdatesAllObservers) {
