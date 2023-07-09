@@ -6,6 +6,7 @@ class MockPublisher : public Publisher {
 public:
     using Publisher::notify;
     inline size_t observerCount() { return observers.size(); }
+    inline size_t eventObserverCount(const std::string &eventName) { return events[eventName].size(); }
 };
 
 class MockObserver : public  Observer {
@@ -50,8 +51,8 @@ TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
 
 TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
     MockObserver mockObserver { "observer" };
-    sut.attach(&mockObserver);
-    ASSERT_EQ(sut.observerCount(), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
+    sut.attach(&mockObserver, "FirstEvent");
+    ASSERT_EQ(sut.eventObserverCount("FirstEvent"), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {

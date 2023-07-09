@@ -9,7 +9,7 @@ using EventMap = std::map<std::string, ObserverList>;
 
 class Publisher {
 public:
-    void attach(Observer *observer);
+    void attach(Observer *observer, const std::string eventName = "");
     void detach(const std::string &name);
     void registerEvent(const std::string &eventName);
     std::list<std::string> eventNames() const;
@@ -20,7 +20,10 @@ protected:
     void notify();
 };
 
-void Publisher::attach(Observer *observer) {
+void Publisher::attach(Observer *observer, const std::string eventName) {
+    if (eventName != "") {
+        events[eventName].push_back(observer);
+    }
     observers.push_back(observer);
 }
 
