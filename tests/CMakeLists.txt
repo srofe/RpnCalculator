@@ -12,7 +12,9 @@ set(sources
         doubles/PublisherObserverMocks.h)
 
 set(app_sources
-        ../applications/common/Stack.cc)
+        ../applications/common/Stack.cc
+        ../applications/common/Publisher.cc
+        ../applications/common/Observer.cc)
 
 add_executable(RpnCalcTests ${sources} ${app_sources} )
 

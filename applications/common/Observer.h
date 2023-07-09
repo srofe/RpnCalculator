@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <any>
 
 using EventData = std::any;
@@ -14,5 +15,3 @@ public:
 private:
     std::string observerName;
 };
-
-Observer::Observer(std::string_view name) : observerName{name} {}
