@@ -38,6 +38,14 @@ TEST_F(PublisherObserverTests, RegisterSameEventTwiceDoesNotAddSecondEvent) {
     ASSERT_EQ(sut.eventNames().size(), 1) << "A Publisher shall not allow duplicate event names.";
 }
 
+TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
+    sut.registerEvent("FirstEvent");
+    sut.registerEvent("SecondEvent");
+    ASSERT_EQ(sut.eventNames().size(), 2) << "Registering multiple events shall add multiple events.";
+    ASSERT_EQ(sut.eventNames().front(), "FirstEvent");
+    ASSERT_EQ(sut.eventNames().back(), "SecondEvent");
+}
+
 TEST_F(PublisherObserverTests, AttachingSubscriberToPublisherIncrementsSubscriberCount) {
     MockObserver mockObserver { "observer" };
     sut.attach(&mockObserver);
