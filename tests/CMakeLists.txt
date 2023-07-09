@@ -7,10 +7,14 @@ link_directories(/usr/local/lib/googletest/build/lib)
 
 set(sources
         main.cc
-        StackTests.cc)
+        StackTests.cc
+        PublisherObserverTests.cc
+        doubles/PublisherObserverMocks.h)
 
 set(app_sources
-        ../applications/common/Stack.cc)
+        ../applications/common/Stack.cc
+        ../applications/common/Publisher.cc
+        ../applications/common/Observer.cc)
 
 add_executable(RpnCalcTests ${sources} ${app_sources} )
 
