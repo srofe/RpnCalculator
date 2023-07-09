@@ -20,6 +20,11 @@ MockObserver::MockObserver(std::string_view name) : Observer(name) {}
 class PublisherObserverTests : public testing::Test {
 public:
     MockPublisher sut;
+
+protected:
+    void SetUp() override {
+        sut.registerEvent("FirstEvent");
+    }
 };
 
 TEST(Observer, ObserverHasName) {
@@ -28,18 +33,15 @@ TEST(Observer, ObserverHasName) {
 }
 
 TEST_F(PublisherObserverTests, RegisterSingleEventAddsEvent) {
-    sut.registerEvent("FirstEvent");
     ASSERT_EQ(sut.eventNames().front(), "FirstEvent") << "Registering a single event shall add the event.";
 }
 
 TEST_F(PublisherObserverTests, RegisterSameEventTwiceDoesNotAddSecondEvent) {
     sut.registerEvent("FirstEvent");
-    sut.registerEvent("FirstEvent");
     ASSERT_EQ(sut.eventNames().size(), 1) << "A Publisher shall not allow duplicate event names.";
 }
 
 TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
-    sut.registerEvent("FirstEvent");
     sut.registerEvent("SecondEvent");
     ASSERT_EQ(sut.eventNames().size(), 2) << "Registering multiple events shall add multiple events.";
     ASSERT_EQ(sut.eventNames().front(), "FirstEvent");
