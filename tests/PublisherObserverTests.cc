@@ -56,17 +56,17 @@ TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
 
 TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
     MockObserver mockObserver { observerName };
-    sut.attach(&mockObserver, firstEvent);
+    sut.attach(firstEvent, &mockObserver);
     ASSERT_EQ(sut.eventObserverCount(firstEvent), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
     MockObserver mockObserver1 { observerOne };
     MockObserver mockObserver2 { observerTwo };
-    sut.attach(&mockObserver1, firstEvent);
-    sut.attach(&mockObserver2, firstEvent);
+    sut.attach(firstEvent, &mockObserver1);
+    sut.attach(firstEvent, &mockObserver2);
     ASSERT_EQ(sut.eventObserverCount(firstEvent), 2) << "Confirm there are two observers attached.";
-    sut.detach(observerTwo, firstEvent);
+    sut.detach(firstEvent, observerTwo);
     ASSERT_EQ(sut.eventObserverCount(firstEvent), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
 }
 
@@ -77,8 +77,8 @@ TEST_F(PublisherObserverTests, DetatchingUnknownObserverThrowsException) {
 TEST_F(PublisherObserverTests, CallingPublisherNotifyUpdatesAllObservers) {
     MockObserver mockObserver1 { observerOne };
     MockObserver mockObserver2 { observerTwo };
-    sut.attach(&mockObserver1, firstEvent);
-    sut.attach(&mockObserver2, firstEvent);
+    sut.attach(firstEvent, &mockObserver1);
+    sut.attach(firstEvent, &mockObserver2);
     sut.notify(firstEvent);
     ASSERT_TRUE(mockObserver1.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer1.";
     ASSERT_TRUE(mockObserver2.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer2.";

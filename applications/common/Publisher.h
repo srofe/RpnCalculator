@@ -9,8 +9,8 @@ using EventMap = std::map<std::string, ObserverList>;
 
 class Publisher {
 public:
-    void attach(Observer *observer, const std::string &eventName);
-    void detach(const std::string &name, const std::string &eventName);
+    void attach(const std::string &eventName, Observer *observer);
+    void detach(const std::string &eventName, const std::string &name);
     void registerEvent(const std::string &eventName);
     std::list<std::string> eventNames() const;
 
@@ -19,11 +19,11 @@ protected:
     void notify(const std::string &eventName);
 };
 
-void Publisher::attach(Observer *observer, const std::string &eventName) {
+void Publisher::attach(const std::string &eventName, Observer *observer) {
     events[eventName].push_back(observer);
 }
 
-void Publisher::detach(const std::string &name, const std::string &eventName) {
+void Publisher::detach(const std::string &eventName, const std::string &name) {
     auto toDelete = std::find_if(
             events[eventName].begin(),
             events[eventName].end(),
