@@ -9,8 +9,8 @@ using EventMap = std::map<std::string, ObserverList>;
 
 class Publisher {
 public:
-    void attach(Observer *observer, const std::string &eventName = "");
-    void detach(const std::string &name, const std::string &eventName = "");
+    void attach(Observer *observer, const std::string &eventName);
+    void detach(const std::string &name, const std::string &eventName);
     void registerEvent(const std::string &eventName);
     std::list<std::string> eventNames() const;
 
