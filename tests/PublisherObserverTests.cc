@@ -78,9 +78,9 @@ TEST_F(PublisherObserverTests, DetatchingUnknownObserverThrowsException) {
 TEST_F(PublisherObserverTests, CallingPublisherNotifyUpdatesAllObservers) {
     MockObserver mockObserver1 { observerOne };
     MockObserver mockObserver2 { observerTwo };
-    sut.attach(&mockObserver1);
-    sut.attach(&mockObserver2);
-    sut.notify();
+    sut.attach(&mockObserver1, firstEvent);
+    sut.attach(&mockObserver2, firstEvent);
+    sut.notify(firstEvent);
     ASSERT_TRUE(mockObserver1.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer1.";
     ASSERT_TRUE(mockObserver2.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer2.";
 }

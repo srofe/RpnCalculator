@@ -17,7 +17,7 @@ public:
 protected:
     ObserverList observers;
     EventMap events;
-    void notify();
+    void notify(const std::string eventName);
 };
 
 void Publisher::attach(Observer *observer, const std::string eventName) {
@@ -64,8 +64,8 @@ std::list<std::string> Publisher::eventNames() const {
     return eventNames;
 }
 
-void Publisher::notify() {
-    for (auto observer : observers) {
+void Publisher::notify(const std::string eventName) {
+    for (auto observer : events[eventName]) {
         observer->update(EventData());
     }
 }
