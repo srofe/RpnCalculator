@@ -24,6 +24,7 @@ public:
 
 protected:
     const std::string firstEvent = "FirstEvent";
+    const std::string secondEvent = "SecondEvent";
     void SetUp() override {
         sut.registerEvent(firstEvent);
     }
@@ -44,10 +45,10 @@ TEST_F(PublisherObserverTests, RegisterSameEventTwiceDoesNotAddSecondEvent) {
 }
 
 TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
-    sut.registerEvent("SecondEvent");
+    sut.registerEvent(secondEvent);
     ASSERT_EQ(sut.eventNames().size(), 2) << "Registering multiple events shall add multiple events.";
-    ASSERT_EQ(sut.eventNames().front(), firstEvent);
-    ASSERT_EQ(sut.eventNames().back(), "SecondEvent");
+    ASSERT_EQ(sut.eventNames().front(), firstEvent) << "Registering an event shall provide an event name";
+    ASSERT_EQ(sut.eventNames().back(), secondEvent) << "Registering an event shall provide an event name";
 }
 
 TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
