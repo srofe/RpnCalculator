@@ -5,6 +5,7 @@
 #include <Exception.h>
 
 using ObserverList = std::list<Observer*>;
+using EventMap = std::map<std::string, ObserverList>;
 
 class Publisher {
 public:
@@ -15,7 +16,7 @@ public:
 
 protected:
     ObserverList observers;
-    std::map<std::string, ObserverList> events;
+    EventMap events;
     void notify();
 };
 
