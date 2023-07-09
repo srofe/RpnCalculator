@@ -23,8 +23,9 @@ public:
     MockPublisher sut;
 
 protected:
+    const std::string firstEvent = "FirstEvent";
     void SetUp() override {
-        sut.registerEvent("FirstEvent");
+        sut.registerEvent(firstEvent);
     }
 };
 
@@ -34,25 +35,25 @@ TEST(Observer, ObserverHasName) {
 }
 
 TEST_F(PublisherObserverTests, RegisterSingleEventAddsEvent) {
-    ASSERT_EQ(sut.eventNames().front(), "FirstEvent") << "Registering a single event shall add the event.";
+    ASSERT_EQ(sut.eventNames().front(), firstEvent) << "Registering a single event shall add the event.";
 }
 
 TEST_F(PublisherObserverTests, RegisterSameEventTwiceDoesNotAddSecondEvent) {
-    sut.registerEvent("FirstEvent");
+    sut.registerEvent(firstEvent);
     ASSERT_EQ(sut.eventNames().size(), 1) << "A Publisher shall not allow duplicate event names.";
 }
 
 TEST_F(PublisherObserverTests, RegisterTwoEventsAddsTwoEvents) {
     sut.registerEvent("SecondEvent");
     ASSERT_EQ(sut.eventNames().size(), 2) << "Registering multiple events shall add multiple events.";
-    ASSERT_EQ(sut.eventNames().front(), "FirstEvent");
+    ASSERT_EQ(sut.eventNames().front(), firstEvent);
     ASSERT_EQ(sut.eventNames().back(), "SecondEvent");
 }
 
 TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCount) {
     MockObserver mockObserver { "observer" };
-    sut.attach(&mockObserver, "FirstEvent");
-    ASSERT_EQ(sut.eventObserverCount("FirstEvent"), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
+    sut.attach(&mockObserver, firstEvent);
+    ASSERT_EQ(sut.eventObserverCount(firstEvent), 1) << "Attaching an Observer to a Publisher shall increase the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
