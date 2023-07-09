@@ -5,7 +5,6 @@
 class MockPublisher : public Publisher {
 public:
     using Publisher::notify;
-    inline size_t observerCount() { return observers.size(); }
     inline size_t eventObserverCount(const std::string &eventName) { return events[eventName].size(); }
 };
 
