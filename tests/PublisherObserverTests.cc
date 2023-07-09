@@ -64,11 +64,11 @@ TEST_F(PublisherObserverTests, AttachingObserverToPublisherIncrementsObserverCou
 TEST_F(PublisherObserverTests, DetatchingObserverDecrementsObserverCount) {
     MockObserver mockObserver1 { observerOne };
     MockObserver mockObserver2 { observerTwo };
-    sut.attach(&mockObserver1);
-    sut.attach(&mockObserver2);
-    ASSERT_EQ(sut.observerCount(), 2) << "Confirm there are two observers attached.";
-    sut.detach(observerTwo);
-    ASSERT_EQ(sut.observerCount(), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
+    sut.attach(&mockObserver1, firstEvent);
+    sut.attach(&mockObserver2, firstEvent);
+    ASSERT_EQ(sut.eventObserverCount(firstEvent), 2) << "Confirm there are two observers attached.";
+    sut.detach(observerTwo, firstEvent);
+    ASSERT_EQ(sut.eventObserverCount(firstEvent), 1) << "Detaching an Observer from a Publisher shall decrease the observers count by one.";
 }
 
 TEST_F(PublisherObserverTests, DetatchingUnknownObserverThrowsException) {

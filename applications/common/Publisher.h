@@ -10,7 +10,7 @@ using EventMap = std::map<std::string, ObserverList>;
 class Publisher {
 public:
     void attach(Observer *observer, const std::string eventName = "");
-    void detach(const std::string &name);
+    void detach(const std::string &name, const std::string eventName = "");
     void registerEvent(const std::string &eventName);
     std::list<std::string> eventNames() const;
 
@@ -23,20 +23,33 @@ protected:
 void Publisher::attach(Observer *observer, const std::string eventName) {
     if (eventName != "") {
         events[eventName].push_back(observer);
+    } else {
+        observers.push_back(observer);
     }
-    observers.push_back(observer);
 }
 
-void Publisher::detach(const std::string &name) {
-    auto toDelete = std::find_if(
-            observers.begin(),
-            observers.end(),
-            [name](Observer *item) { return item->name() == name;}
-            );
-    if (toDelete == observers.end()) {
-        throw Exception("Cannot detach Observer: Unknown observer name.");
+void Publisher::detach(const std::string &name, const std::string eventName) {
+    if (eventName != "") {
+        auto toDelete = std::find_if(
+                events[eventName].begin(),
+                events[eventName].end(),
+                [name](Observer *item) { return item->name() == name; }
+        );
+        if (toDelete == events[eventName].end()) {
+            throw Exception("Cannot detach Observer: Unknown observer name.");
+        }
+        events[eventName].erase(toDelete);
+    } else {
+        auto toDelete = std::find_if(
+                observers.begin(),
+                observers.end(),
+                [name](Observer *item) { return item->name() == name; }
+        );
+        if (toDelete == observers.end()) {
+            throw Exception("Cannot detach Observer: Unknown observer name.");
+        }
+        observers.erase(toDelete);
     }
-    observers.erase(toDelete);
 }
 
 void Publisher::registerEvent(const std::string &eventName) {
