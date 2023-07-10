@@ -10,6 +10,7 @@ public:
     ErrorCondition error() { return errorCondition; }
 
 private:
+    StackErrorData();
     ErrorCondition errorCondition;
 };
 
