@@ -7,7 +7,7 @@ enum class ErrorCondition {
 
 class StackErrorData {
 public:
-    StackErrorData(ErrorCondition condition) { errorCondition = condition; }
+    StackErrorData(ErrorCondition condition) : errorCondition(condition) {};
     ErrorCondition error() { return errorCondition; }
 
 private:
@@ -20,7 +20,7 @@ TEST(StackErrorDataTests, StackErrorDataHasErrorConditionEmpty) {
     ASSERT_EQ(errorData.error(), ErrorCondition::Empty) << "The StackErrorData shall have an error condition of Empty.";
 }
 
-TEST(StackeErrorDataTests, StackErrorDataHasErrorConditionTooFewArguments) {
+TEST(StackErrorDataTests, StackErrorDataHasErrorConditionTooFewArguments) {
     StackErrorData errorData { ErrorCondition::TooFewArguments };
     ASSERT_EQ(errorData.error(), ErrorCondition::TooFewArguments) << "The StackErrorData shall have an error condition of TooFewArguments.";
 }
