@@ -6,10 +6,14 @@ enum class ErrorCondition {
 
 class StackErrorData {
 public:
-    ErrorCondition error() { return ErrorCondition::Empty; }
+    StackErrorData(ErrorCondition condition) { errorCondition = condition; }
+    ErrorCondition error() { return errorCondition; }
+
+private:
+    ErrorCondition errorCondition;
 };
 
-TEST(StackErrorDataTests, StackErrorDataHasErrorCondition) {
-    StackErrorData errorData;
+TEST(StackErrorDataTests, StackErrorDataHasErrorConditionEmpty) {
+    StackErrorData errorData { ErrorCondition::Empty };
     ASSERT_EQ(errorData.error(), ErrorCondition::Empty) << "The StackErrorData shall have an error condition of Empty.";
 }
