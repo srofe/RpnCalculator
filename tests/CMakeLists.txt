@@ -7,9 +7,10 @@ link_directories(/usr/local/lib/googletest/build/lib)
 
 set(sources
         main.cc
+        doubles/PublisherObserverMocks.h
         StackTests.cc
         PublisherObserverTests.cc
-        doubles/PublisherObserverMocks.h)
+        StackErrorDataTests.cc)
 
 set(app_sources
         ../applications/common/Stack.cc
