@@ -1,29 +1,5 @@
 #include <gmock/gmock.h>
-
-enum class ErrorCondition {
-    Empty,
-    TooFewArguments
-};
-
-class StackErrorData {
-public:
-    StackErrorData(ErrorCondition condition) : errorCondition(condition) {};
-    inline ErrorCondition error() { return errorCondition; }
-    std::string message();
-
-protected:
-    StackErrorData() = default;
-private:
-    ErrorCondition errorCondition;
-};
-
-std::string StackErrorData::message() {
-    switch (errorCondition) {
-        case ErrorCondition::Empty: return "Attempting to pop from empty stack.";
-        case ErrorCondition::TooFewArguments: return "At least two stack elements required for this operation.";
-    }
-    return "Unknown error.";
-}
+#include <StackErrorData.h>
 
 class StackErrorDataMock : public StackErrorData {
 public:
@@ -52,5 +28,5 @@ TEST(StackErrorDataTests, StackErrorDataProvidesTooFewArgumentsMessage) {
 
 TEST(StackErrorDataTests, Mock) {
     StackErrorDataMock mockErrorData;
-    ASSERT_EQ(mockErrorData.message(), "Unknown error.");
+    ASSERT_EQ(mockErrorData.message(), "Unknown error.") << " A StackErrorData shall provide a default message for unknown error condition.";
 }
