@@ -26,7 +26,7 @@ TEST(StackErrorDataTests, StackErrorDataProvidesTooFewArgumentsMessage) {
     ASSERT_EQ(errorData.message(), "At least two stack elements required for this operation.") << "The StackErrorData shall provide a message for an error condition.";
 }
 
-TEST(StackErrorDataTests, Mock) {
+TEST(StackErrorDataTests, StackErrorDataProvidesUnkownErrorMessage) {
     StackErrorDataMock mockErrorData;
     ASSERT_EQ(mockErrorData.message(), "Unknown error.") << " A StackErrorData shall provide a default message for unknown error condition.";
 }

@@ -15,5 +15,5 @@ protected:
     StackErrorData() = default;
 
 private:
-    ErrorCondition errorCondition;
+    ErrorCondition errorCondition = static_cast<ErrorCondition>(-1);
 };
