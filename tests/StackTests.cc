@@ -99,9 +99,16 @@ TEST_F(StackTests, SwapTopExchangesTopTwoItems) {
     ASSERT_EQ(sut.getElements(), emptyVector) << "A Stack's clear() method shall remove all elements.";
 }
 
-TEST_F(StackTests, StackErrorSentToObserver) {
+TEST_F(StackTests, StackEmptyStackErrorSentToObserver) {
     StackErrorObserver errorObserver { "ErrorObserver" };
     sut.attach("Errors", &errorObserver);
     sut.pop();
-    ASSERT_EQ(errorObserver.errorText(), "Attempting to pop from empty stack.") << "When attempting to pop when the stack is empty, the Stack shall notify attached observers.";
+    ASSERT_EQ(errorObserver.errorText(), "Attempting to pop from empty stack.") << "Attempting to pop when the stack is empty shall notify attached observers of an error.";
+}
+
+TEST_F(StackTests, StackTwoElementsErrorSentToObserver) {
+    StackErrorObserver errorObserver { "ErrorObserver" };
+    sut.attach("Errors", &errorObserver);
+    sut.swapTop();
+    ASSERT_EQ(errorObserver.errorText(), "At least two stack elements required for this operation.") << "Attempting to swap the top two elements when the stack is empty shall notify attached observers of and error.";
 }

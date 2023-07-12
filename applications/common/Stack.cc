@@ -39,8 +39,12 @@ void Stack::clear() {
 }
 
 void Stack::swapTop() {
-    auto first = pop();
-    auto second = pop();
-    content.push_front(first);
-    content.push_front(second);
+    if (content.size() < 2) {
+        notify("Errors", StackErrorData(ErrorCondition::TooFewArguments));
+    } else {
+        auto first = pop();
+        auto second = pop();
+        content.push_front(first);
+        content.push_front(second);
+    }
 }
