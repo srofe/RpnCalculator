@@ -106,9 +106,17 @@ TEST_F(StackTests, StackEmptyStackErrorSentToObserver) {
     ASSERT_EQ(errorObserver.errorText(), "Attempting to pop from empty stack.") << "Attempting to pop when the stack is empty shall notify attached observers of an error.";
 }
 
-TEST_F(StackTests, StackTwoElementsErrorSentToObserver) {
+TEST_F(StackTests, StackTwoElementsErrorSentToObserverEmptyStack) {
     StackErrorObserver errorObserver { "ErrorObserver" };
     sut.attach("Errors", &errorObserver);
     sut.swapTop();
     ASSERT_EQ(errorObserver.errorText(), "At least two stack elements required for this operation.") << "Attempting to swap the top two elements when the stack is empty shall notify attached observers of and error.";
+}
+
+TEST_F(StackTests, StackTwoElementsErrorSentToObserverSingleItemOnStack) {
+    StackErrorObserver errorObserver { "ErrorObserver" };
+    sut.attach("Errors", &errorObserver);
+    sut.push(1.2);
+    sut.swapTop();
+    ASSERT_EQ(errorObserver.errorText(), "At least two stack elements required for this operation.") << "Attempting to swap the top two elements when the stack hsa only one item shall notify attached observers of and error.";
 }
