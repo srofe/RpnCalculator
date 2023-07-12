@@ -1,4 +1,9 @@
 #include "Stack.h"
+#include <StackErrorData.h>
+
+Stack::Stack() {
+    registerEvent("Errors");
+}
 
 Stack &Stack::instance() {
     static Stack instance;
@@ -10,9 +15,14 @@ void Stack::push(double item) {
 }
 
 double Stack::pop() {
-    auto item = content.front();
-    content.pop_front();
-    return item;
+    if (content.empty()) {
+        notify("Errors", StackErrorData(ErrorCondition::Empty));
+        return 0.0;
+    } else {
+        auto item = content.front();
+        content.pop_front();
+        return item;
+    }
 }
 
 std::vector<double> Stack::getElements(int length) {

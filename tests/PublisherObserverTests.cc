@@ -63,7 +63,7 @@ TEST_F(PublisherObserverTests, CallingPublisherNotifyUpdatesAllObservers) {
     MockObserver mockObserver2 { observerTwo };
     sut.attach(firstEvent, &mockObserver1);
     sut.attach(firstEvent, &mockObserver2);
-    sut.notify(firstEvent);
+    sut.notify(firstEvent, nullptr);
     ASSERT_TRUE(mockObserver1.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer1.";
     ASSERT_TRUE(mockObserver2.updateCalled) << "The Publisher notify() method shall notify an Observer by calling its update() method - observer2.";
 }

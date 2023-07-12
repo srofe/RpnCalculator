@@ -2,9 +2,12 @@
 
 #include <deque>
 #include <vector>
+#include <Publisher.h>
 
-class Stack {
+class Stack : private Publisher {
 public:
+    Stack(const Stack&) = delete;
+    Stack &operator=(const Stack&) = delete;
     static Stack & instance();
     void push(double item);
     double pop();
@@ -12,11 +15,11 @@ public:
     void clear();
     void swapTop();
 
+    using Publisher::attach;
+
 private:
-    Stack() = default;
+    Stack();
     ~Stack() = default;
-    Stack(const Stack&) = delete;
-    Stack &operator=(const Stack&) = delete;
 
     std::deque<double> content;
 };

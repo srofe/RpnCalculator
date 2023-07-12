@@ -17,5 +17,5 @@ public:
 
 protected:
     EventMap events;
-    void notify(const std::string &eventName);
+    void notify(const std::string &eventName, const EventData& eventData);
 };

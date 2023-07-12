@@ -22,14 +22,14 @@ void Publisher::registerEvent(const std::string &eventName) {
 
 std::list<std::string> Publisher::eventNames() const {
     std::list<std::string> eventNames;
-    for ( auto event : events) {
+    for (const auto &event : events) {
         eventNames.push_back(event.first);
     }
     return eventNames;
 }
 
-void Publisher::notify(const std::string &eventName) {
+void Publisher::notify(const std::string &eventName, const EventData& eventData) {
     for (auto observer : events[eventName]) {
-        observer->update(EventData());
+        observer->update(eventData);
     }
 }

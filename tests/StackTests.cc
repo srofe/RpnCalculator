@@ -1,5 +1,23 @@
 #include "gmock/gmock.h"
 #include <Stack.h>
+#include <StackErrorData.h>
+
+class StackErrorObserver : public Observer {
+public:
+    explicit StackErrorObserver(std::string_view name);
+    void update(const EventData &eventData) override;
+    inline std::string errorText() {return errorName; }
+
+private:
+    std::string errorName;
+};
+
+StackErrorObserver::StackErrorObserver(std::string_view name) : Observer(name) {}
+
+void StackErrorObserver::update(const EventData &eventData) {
+    auto errorData = std::any_cast<StackErrorData>(eventData);
+    errorName = errorData.message();
+}
 
 class StackTests : public testing::Test {
 public:
@@ -79,4 +97,11 @@ TEST_F(StackTests, SwapTopExchangesTopTwoItems) {
     sut.swapTop();
     std::vector<double> emptyVector = { 0.3, 7.5, 9.4, 2.6 };
     ASSERT_EQ(sut.getElements(), emptyVector) << "A Stack's clear() method shall remove all elements.";
+}
+
+TEST_F(StackTests, StackErrorSentToObserver) {
+    StackErrorObserver errorObserver { "ErrorObserver" };
+    sut.attach("Errors", &errorObserver);
+    sut.pop();
+    ASSERT_EQ(errorObserver.errorText(), "Attempting to pop from empty stack.") << "When attempting to pop when the stack is empty, the Stack shall notify attached observers.";
 }
